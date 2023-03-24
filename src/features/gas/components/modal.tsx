@@ -1,14 +1,10 @@
 import React, { FC } from 'react';
-import { Slider } from '@mui/material';
+import { GWEI_TO_ETH } from '../utils';
 import { Modal } from '@/components/modal';
-import { Toggle } from '@/components/toggle';
 import { useMaxFee } from '../hooks/useMaxFee';
 import { useGasLimit } from '../hooks/useGasLimit';
-import { SelectButton } from '@/components/elements';
-import { useAdvancedOpen } from '../hooks/useAdvancedOpen';
-import { useGetGasFeeQuery, useUpdateGasFeeMutation } from '../api';
+import { BottomButton } from '@/components/elements';
 import { AdvancedSettings, BasicSettings } from './settings';
-import { GWEI_TO_ETH } from '../utils';
 
 interface GasModalProps {
   openModal: boolean;
@@ -44,13 +40,7 @@ const Header: FC = () => {
 const CloseButton: FC<CloseButtonProps> = ({ handleClose }) => {
   return (
     <div className="mt-5 sm:mt-6">
-      <button
-        type="button"
-        className="inline-flex w-full justify-center rounded-lg bg-blue-500 px-3 py-2 text-white shadow-sm hover:bg-blue-600 "
-        onClick={handleClose}
-      >
-        Close
-      </button>
+      <BottomButton text="Close" handleClick={handleClose} />
     </div>
   );
 };

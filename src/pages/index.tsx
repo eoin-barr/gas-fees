@@ -2,6 +2,8 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { Inter } from 'next/font/google';
 import { GasModal } from '@/features/gas';
+import { Layout } from '@/components/containers';
+import { PrimaryButton } from '@/components/elements';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,6 +12,10 @@ export default function Home() {
 
   const handleClose = () => {
     setOpenModal(false);
+  };
+
+  const handleOpen = () => {
+    setOpenModal(true);
   };
 
   return (
@@ -21,14 +27,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
-        <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-white-500">
-          <button
-            onClick={() => setOpenModal(true)}
-            className="bg-blue-500 hover:bg-blue-600 active:bg-blue-400 py-2 px-4 rounded-md shadow-xl"
-          >
-            Open
-          </button>
-        </div>
+        <Layout>
+          <PrimaryButton text="Open" handleClick={handleOpen} />
+        </Layout>
       </>
       <GasModal handleClose={handleClose} openModal={openModal} />
     </>
