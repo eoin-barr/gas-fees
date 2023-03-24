@@ -7,7 +7,7 @@ export const useGasLimit = () => {
   const dispatch = useAppDispatch();
 
   return useMemo(() => {
-    const setGasLimit = (value: number) => {
+    const setGasLimit = (value: number | string) => {
       dispatch(_setGasLimitValue(value));
     };
 

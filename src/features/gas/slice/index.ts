@@ -2,7 +2,7 @@ import { RootState } from '@/redux/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type GasState = {
-  gasLimitValue: number;
+  gasLimitValue: string | number;
   maxFeeValue: number;
   advancedOpen: boolean;
 };
@@ -11,7 +11,7 @@ export const gasSlice = createSlice({
   name: 'gas',
   initialState: { gasLimitValue: 20, maxFeeValue: 10, advancedOpen: false } as GasState,
   reducers: {
-    setGasLimitValue: (state, action: PayloadAction<number>) => {
+    setGasLimitValue: (state, action: PayloadAction<number | string>) => {
       state.gasLimitValue = action.payload;
     },
     setMaxFeeValue: (state, action: PayloadAction<number>) => {
