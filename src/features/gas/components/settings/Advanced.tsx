@@ -13,6 +13,9 @@ import {
   MAX_GAS_LIMIT,
 } from '../../utils';
 import { ETHERSCANAPI } from '@/lib/config';
+import { InputError } from '@/components/error';
+import { InputContainer } from '@/components/containers';
+import { NumberInput } from '@/components/elements/input';
 
 export const AdvancedSettings: FC = () => {
   const { maxFee, setMaxFee } = useMaxFee();
@@ -68,60 +71,39 @@ export const AdvancedSettings: FC = () => {
   }, [data]);
 
   return (
-    <div id={'advanced settings'} className="w-full">
+    <div className="w-full">
       {advancedOpen ? (
         <div className="text-gray-800 w-full">
-          <div className="flex flex-col items-start justify-start w-full my-2">
-            <div>
-              <p className="font-medium">Gas Fee (GWEI)</p>
-            </div>
+          <InputContainer title={'Gas Fee (GWEI)'}>
             <div className="w-full mt-2 relative">
               {data && (
-                <input
+                <NumberInput
                   min={0}
-                  type={'number'}
                   value={data.gasFee}
-                  onFocus={() => setGasFeeError(null)}
-                  onBlur={(e) => handleGasFeeInput(e)}
-                  onChange={(e) => handleGasFeeInput(e)}
-                  className="w-full rounded-md p-2 bg-gray-100 focus-none outline-none ring-none caret-blue-500"
+                  handleFocus={() => setGasFeeError(null)}
+                  handleBlur={(e) => handleGasFeeInput(e)}
+                  handleChange={(e) => handleGasFeeInput(e)}
                 />
               )}
-              {gasFeeError ? (
-                <p className="text-red-500 text-xs font-normal">{gasFeeError}</p>
-              ) : (
-                <div className="h-4" />
-              )}
+              <InputError error={gasFeeError} />
               <div className="absolute right-2 top-2 z-10 text-gray-500">
                 {gasFeeUSD && <span>${gasFeeUSD}</span>}
               </div>
             </div>
-          </div>
-          <div className="flex flex-col items-start justify-start w-full my-2">
-            <div>
-              <p className="font-medium">Gas Limit</p>
-            </div>
+          </InputContainer>
+          <InputContainer title={'Gas Limit'}>
             <div className="w-full mt-2">
-              <input
+              <NumberInput
                 min={0}
-                type={'number'}
                 value={gasLimit}
-                onFocus={() => setGasLimitError(null)}
-                onBlur={(e) => handleGasLimitInput(e)}
-                onChange={(e) => handleGasLimitInput(e)}
-                className="w-full rounded-md p-2 bg-gray-100 focus-none outline-none ring-none caret-blue-500"
+                handleFocus={() => setGasLimitError(null)}
+                handleBlur={(e) => handleGasLimitInput(e)}
+                handleChange={(e) => handleGasLimitInput(e)}
               />
-              {gasLimitError ? (
-                <p className="text-red-500 text-xs font-normal">{gasLimitError}</p>
-              ) : (
-                <div className="h-4" />
-              )}
+              <InputError error={gasLimitError} />
             </div>
-          </div>
-          <div className="flex flex-col items-start justify-start w-full my-2">
-            <div>
-              <p className="font-medium">Max Fee (GWEI)</p>
-            </div>
+          </InputContainer>
+          <InputContainer title={'Max Fee (GWEI)'}>
             <div className="w-full mt-2">
               <Slider
                 min={10}
@@ -134,7 +116,7 @@ export const AdvancedSettings: FC = () => {
                 onChange={(e, val) => setMaxFee(val as number)}
               />
             </div>
-          </div>
+          </InputContainer>
         </div>
       ) : (
         <></>
