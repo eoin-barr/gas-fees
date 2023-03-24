@@ -34,12 +34,18 @@ export const AdvancedSettings: FC = () => {
       updateGasFee({ gasFee: 0 });
       return;
     }
-    if (parseInt(value) > MAX_GAS_FEE) {
+    if (parseFloat(value) > MAX_GAS_FEE) {
       setGasFeeError(GasFeeError.TOO_HIGH);
       updateGasFee({ gasFee: MAX_GAS_FEE });
       return;
     }
-    updateGasFee({ gasFee: parseInt(value) });
+    //set max length of input to 8
+    if (String(value).split('.').length > 1) {
+      if (String(value).split('.')[1].length > 2) {
+        return;
+      }
+    }
+    updateGasFee({ gasFee: parseFloat(value) });
   };
 
   const handleGasLimitInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,6 +85,7 @@ export const AdvancedSettings: FC = () => {
               {data && (
                 <NumberInput
                   min={0}
+                  step={0.01}
                   value={data.gasFee}
                   handleFocus={() => setGasFeeError(null)}
                   handleBlur={(e) => handleGasFeeInput(e)}
@@ -95,6 +102,7 @@ export const AdvancedSettings: FC = () => {
             <div className="w-full mt-2">
               <NumberInput
                 min={0}
+                step={1}
                 value={gasLimit}
                 handleFocus={() => setGasLimitError(null)}
                 handleBlur={(e) => handleGasLimitInput(e)}

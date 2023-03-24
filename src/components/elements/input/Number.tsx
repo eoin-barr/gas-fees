@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 interface NumberInputProps {
   min: number;
+  step: number;
   value: number | string;
   handleFocus: (value: null) => void;
   handleChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
@@ -9,6 +10,7 @@ interface NumberInputProps {
 }
 export const NumberInput: FC<NumberInputProps> = ({
   min,
+  step,
   value,
   handleBlur,
   handleFocus,
@@ -19,6 +21,7 @@ export const NumberInput: FC<NumberInputProps> = ({
       min={min}
       type={'number'}
       value={value}
+      step={step}
       onFocus={() => handleFocus(null)}
       onBlur={(e) => handleBlur(e)}
       onChange={(e) => handleChange(e)}
